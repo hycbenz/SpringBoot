@@ -1,0 +1,44 @@
+#properties配置文件和yml配置文件中的配置会互补，如果两个文件中的配置相同，SpringBoot会优先使用properties配置文件中的配置
+spring:
+  #下面为连接池的补充设置，应用到所有数据源中
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 1
+    maxActive: 50
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    #connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+
+#redis配置
+  redis:
+    host: 118.190.157.91
+    port: 6379
+    pool:
+      max-active: 1000 #连接池最大连接数(负数表示没有限制)
+      max-wait: 3000 #连接池最大阻塞等待时间 单位毫秒 (负数表示没有限制)
+      max-idle: 100 #连接池中的最大空闲数
+      min-idle: 20  #连接池中的最小空闲连接
+
+#      mybatis的配置
+mybatis:
+  mapper-locations: classpath:com/shinesun/*/dao/mapper/*.xml  #mapper配置文件的位置
+  config-location: classpath:mybatis/mybatis-config.xml  #mybatis配置文件的位置

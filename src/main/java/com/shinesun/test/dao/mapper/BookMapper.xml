@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinesun.test.dao.BookDao">
+
+    <!--查询所有图书列表-->
+    <select id="selectBookList" resultType="Book">
+        SELECT `id`,`bookName`,`price`,`author` FROM tab_book
+    </select>
+
+    <!--新增图书-->
+    <insert id="insertBook" parameterType="Book">
+        INSERT INTO tab_book(`bookName`, `price`, `author`)
+        VALUES (#{bookName}, #{price}, #{author})
+    </insert>
+
+</mapper>
